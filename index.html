@@ -73,13 +73,13 @@
     </div>
     <div id="pageContent" style="display:none;">
       <div class="boxed">
-        <p id="notify">Welcome to SpeckCoin Incremental!</p>
+        <p id="notify"></p>
       </div>
       <table id="resources">
         <tbody>
           <tr>
             <td style="font-size:0;">
-              <img height="22" width="22" src="images/speckCoin.png" style="font-size:0;" id="coinImg"/>
+              <img height="22" width="22" src="images/speckCoin.gif" style="font-size:0;" id="coinImg"/>
             </td>
             <td width="120px;">
               <p id="coinDisplay" style="color:gold;">0</p>
@@ -110,20 +110,54 @@
       <div id="Coin" class="tabcontent">
         <h2>Coin Producers</h2>
         <br>
-        <p id="coin1" onclick="data.game.coins.buyBuilding(1)" class="boxed">Buy a Flyspeck [0] (100 SpeckCoins)</p>
-        <br>
-        <p id="coin2" onclick="data.game.coins.buyBuilding(2)" style="display: none;" class="boxed">Buy a Cloner [0] (100 SpeckCoins)</p>
-        <br>
-        <p id="coin3" onclick="data.game.coins.buyBuilding(3)" style="display: none;" class="boxed">Buy a Daydream [0] (100 SpeckCoins)</p>
-        <br>
-        <p id="coin4" onclick="data.game.coins.buyBuilding(4)" style="display: none;" class="boxed">Buy a Lollipop [0] (100 SpeckCoins)</p>
-        <br>
-        <p id="coin5" onclick="data.game.coins.buyBuilding(5)" style="display: none;" class="boxed">Buy a Fly God [0] (100 SpeckCoins)</p>
+				<div id="coinDisp1" class="boxed">
+					<img src="images/flyspeck.gif" align="left" onclick="data.game.coins.buyBuilding(1)" height="44" width="88" />
+					<p id="coin1" class="boxed">Buy a Flyspeck [0] (100 SpeckCoins)</p>
+					<br>
+				</div>
+	      <br>
+				<div id="coinDisp2" class="boxed">
+					<img src="images/cloner.gif" align="left" onclick="data.game.coins.buyBuilding(2)" height="44" width="88" />
+					<p id="coin2" style="display: none;" class="boxed">Buy a Cloner [0] (100 SpeckCoins)</p>
+					<br>
+				</div>
+				<br>
+				<div id="coinDisp3" class="boxed">
+					<img src="images/daydream.png" align="left" onclick="data.game.coins.buyBuilding(3)" height="44" width="88" />
+					<p id="coin3" style="display: none;" class="boxed">Buy a Daydream [0] (100 SpeckCoins)</p>
+					<br>
+				</div>
+				<br>
+				<div id="coinDisp4" class="boxed">
+					<img src="images/lollipop.gif" align="left" onclick="data.game.coins.buyBuilding(4)" height="44" width="88" />
+					<p id="coin4" style="display: none;" class="boxed">Buy a Lollipop [0] (100 SpeckCoins)</p>
+					<br>
+				</div>
+				<br>
+				<div id="coinDisp5" class="boxed">
+					<img src="images/flyspeck.gif" align="left" onclick="data.game.coins.buyBuilding(5)" height="44" width="88" />
+					<p id="coin5" style="display: none;" class="boxed">Buy a Fly God [0] (100 SpeckCoins)</p>
+					<br>
+				</div>
       </div>
 
       <div id="Diamond" class="tabcontent">
         <h2>Diamond Producers</h2>
         <button onclick="(function(){})()">No use yet</button>
+        <p id="workdialog" style="display: block;">Working is easy, you just need to type things you are told to within the time limit to earn diamonds. The time limit will be faster as you move on, but you will get paid more. <br>
+			
+If the time limit is over, you will not receive the diamonds you earned that session. <br>
+To actually receive the diamonds you earned, just press 'escape', but this means you have to start over.<br><br>
+
+Type anything in the textbox below to start.<br>
+
+<input type="text" class="work-text"><br>
+Type: '<span class="work-type">(start working first)</span>'                     Time: <span class="work-time"></span><br><br>
+
+<span class="work-paid">You got $2, type anything in the textbox to start again.</span><br><br>
+
+<input type="button" value="Go back" onclick="work('stop')">
+</p>
       </div>
 
       <div id="Proton" class="tabcontent">
@@ -144,3 +178,4 @@
     <script src="js/main.js"></script>
   </body>
 </html>
+
