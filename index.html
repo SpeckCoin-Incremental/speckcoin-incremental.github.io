@@ -64,12 +64,49 @@
       .boxed {
         border: 1px solid black;
       }
+	    .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
     </style>
   </head>
   <body>
     <div id="loader" class="imgbox" style="display:block;">
       <img class="center-fit center" src="favicon.ico"/>
-      <h1>Loading...</h1>
+      <h1 id="saveFound">Loading...</h1>
     </div>
     <div id="pageContent" style="display:none;">
       <div class="boxed">
@@ -104,6 +141,7 @@
         <button class="tablinks" onclick="openCity(event, 'Coin')" id="default">Coin Buildings</button>
         <button class="tablinks" onclick="openCity(event, 'Diamond')" style="display:none;">Diamond Buildings</button>
         <button class="tablinks" onclick="openCity(event, 'Proton')" style="display:none;">Proton Buildings</button>
+        <button class="tablinks" id="myBtn">Options</button>
       </div>
 
       <!-- Tab content -->
@@ -111,31 +149,31 @@
         <h2>Coin Producers</h2>
         <br>
 				<div id="coinDisp1" class="boxed">
-					<img src="images/flyspeck.gif" align="left" onclick="data.game.coins.buyBuilding(1)" height="44" width="88" />
+					<img src="images/flyspeck.gif" align="left" onclick="coins.buyBuilding(1)" height="44" width="88" />
 					<p id="coin1" class="boxed">Buy a Flyspeck [0] (100 SpeckCoins)</p>
 					<br>
 				</div>
 	      <br>
 				<div id="coinDisp2" class="boxed">
-					<img src="images/cloner.gif" align="left" onclick="data.game.coins.buyBuilding(2)" height="44" width="88" />
+					<img src="images/cloner.gif" align="left" onclick="coins.buyBuilding(2)" height="44" width="88" />
 					<p id="coin2" class="boxed">Buy a Cloner [0] (100 SpeckCoins)</p>
 					<br>
 				</div>
 				<br>
 				<div id="coinDisp3" class="boxed">
-					<img src="images/daydream.png" align="left" onclick="data.game.coins.buyBuilding(3)" height="44" width="88" />
+					<img src="images/daydream.png" align="left" onclick="coins.buyBuilding(3)" height="44" width="88" />
 					<p id="coin3" class="boxed">Buy a Daydream [0] (100 SpeckCoins)</p>
 					<br>
 				</div>
 				<br>
 				<div id="coinDisp4" class="boxed">
-					<img src="images/lollipop.gif" align="left" onclick="data.game.coins.buyBuilding(4)" height="44" width="88" />
+					<img src="images/lollipop.gif" align="left" onclick="coins.buyBuilding(4)" height="44" width="88" />
 					<p id="coin4" class="boxed">Buy a Lollipop [0] (100 SpeckCoins)</p>
 					<br>
 				</div>
 				<br>
 				<div id="coinDisp5" class="boxed">
-					<img src="images/flyKing.png" align="left" onclick="data.game.coins.buyBuilding(5)" height="44" width="88" />
+					<img src="images/flyKing.png" align="left" onclick="coins.buyBuilding(5)" height="44" width="88" />
 					<p id="coin5" class="boxed">Buy a Fly King [0] (100 SpeckCoins)</p>
 					<br>
 				</div>
@@ -143,22 +181,10 @@
 
       <div id="Diamond" class="tabcontent">
         <h2>Diamond Producers</h2>
-        <button onclick="(function(){})()">No use yet</button>
-        <p id="workdialog" style="display: block;">Working is easy, you just need to type things you are told to within the time limit to earn diamonds. The time limit will be faster as you move on, but you will get paid more. <br>
-			
-If the time limit is over, you will not receive the diamonds you earned that session. <br>
-To actually receive the diamonds you earned, just press 'escape', but this means you have to start over.<br><br>
-
-Type anything in the textbox below to start.<br>
-
-<input type="text" class="work-text"><br>
-Type: '<span class="work-type">(start working first)</span>'                     Time: <span class="work-time"></span><br><br>
-
-<span class="work-paid">You got $2, type anything in the textbox to start again.</span><br><br>
-
-<input type="button" value="Go back" onclick="work('stop')">
+        
 </p>
       </div>
+	  
 
       <div id="Proton" class="tabcontent">
         <h2>Proton Producers</h2>
@@ -169,12 +195,26 @@ Type: '<span class="work-type">(start working first)</span>'                    
         <br/>
         <br/>
         <a href="https://discord.gg/MggR8ZgTP8" style="font-size: 12px;" alt="Official Discord Server">Official Discord Server</a>
-        <a href="https://www.github.com/Flyspeck101/SpeckCoin-Incremental/" style="font-size: 12px;" alt="GitHub Source Code">Source Code</a>
+        <a href="https://github.com/SpeckCoin-Incremental/speckcoin-incremental.github.io/" style="font-size: 12px;" alt="Source Code">Source Code</a>
       </div>
+    <div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close" id="closeoptions">&times;</span>
+	  <br><br>
+    <button style="background-color: #555555; /* Green */ border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" onclick="(function() {if (prompt('Do you really want to reset? You will lose all progress! (Type \'yes\' to confirm)') == 'yes') {reset();document.getElementById('closeoptions').click();}})()">Reset</button>
+    <br><br><input type="file" id="importSave" hidden>
+	  <label style="background-color: #555555; /* Green */ border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" for="importSave">Import save</label>
+      <br><br><button style="background-color: #555555; /* Green */ border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;" disabled>Export Save</button>
+  </div>
+
+</div>
     </div>
-    <script src="js/decimal.js"></script>
     <script src="js/core.js"></script>
-    <script src="js/resource.js"></script>
+    <script src="js/jQuery.js"></script>
+    <script src="js/freeDiamonds.js"></script>
+    <script src="js/softReset.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
