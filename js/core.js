@@ -4,7 +4,7 @@ class Core {
   static notify(text) {
     const digitsHex = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
     document.getElementById("notify").innerHTML = text;
-    startFadeDec(255, 0, 0, 255, 255, 255, 256, "notify");
+    startFadeDec(255, 0, 0, 0, 0, 0, 256, "notify");
   }
   static hideById(id) {
     document.getElementById(id).style.display = "none";
@@ -28,16 +28,38 @@ class Core {
   }
 
   static saveGame(data) {
-    localStorage.setItem("local_game_saved",true);
-    localStorage.setItem("save", JSON.stringify(data));
+    localStorage.setItem("game_saved",true);
+    localStorage.setItem("json_save", JSON.stringify(data));
   }
 
   static loadGameTo() {
-    if (localStorage.getItem("local_game_saved") != "true") {
+    if (localStorage.getItem("game_saved") != "true") {
       return false;
     }
-    data = JSON.parse(localStorage.getItem("save"));
+    data = JSON.parse(localStorage.getItem("json_save"));
     return true;
+  }
+
+  static importSave() {
+  	const selectedFile = document.getElementById('importSave').files[0];
+  	let fileReader = new FileReader();
+  	fileReader.onload = function(e) {
+  		data = JSON.parse(atob(e.target.result));
+  	};
+  	fileReader.readAsText(selectedFile);
+  	document.getElementById('closeoptions').click();
+  }
+
+  static exportSave() {
+  	let saveFile = new Blob([btoa(JSON.stringify(data))], { type: "text/json;charset=utf-8" });
+  	setTimeout(function(){saveAs(saveFile, "speckcoin-incremental-save.json");}, 1000);
+  }
+  static muteToggle() {
+  	if (document.getElementById("soundtrack").muted == true) {
+  		document.getElementById("soundtrack").muted = false;
+  	} else {
+  		document.getElementById("soundtrack").muted = true;
+  	}
   }
 
 }
